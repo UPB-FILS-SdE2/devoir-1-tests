@@ -38,55 +38,67 @@ hintsfile=$DIR/results/hints.out
 rm -f $errorslist
 rm -f $hintsfile
 
-for folder in $(cd "$DIR" && find verify -mindepth 1 -maxdepth 1 -type d)
-do
-    for script in "$folder"/*.sh
+if [ $# -lt 1 ];
+then
+    echo "Running all tests"
+    for folder in $(cd "$DIR" && find verify -mindepth 1 -maxdepth 1 -type d)
     do
-        echo $script
-        title=`basename $script`
-        strtitle="Verifying $title"
-        printf '%s' "$strtitle"
-        pad=$(printf '%0.1s' "."{1..60})
-        padlength=65
+        for script in "$folder"/*.sh
+        do
+            title=`basename $script`
+            strtitle="Verifying $title"
+            printf '%s' "$strtitle"
+            pad=$(printf '%0.1s' "."{1..60})
+            padlength=65
 
-        P=`head -n 2 "$script" | tail -n 1 | cut -d ' ' -f 2`
+            P=`head -n 2 "$script" | tail -n 1 | cut -d ' ' -f 2`
 
-        echo $script
-
-        if run_script $script
-        then
-            str="ok (""$P""p)"
-            passed=$(($passed+1))
-            POINTS=$(($POINTS+$P))
-        else
-            if [ $? == 124 ];
+            if run_script $script
             then
-                str="timeout (0p)"
+                str="ok (""$P""p)"
+                passed=$(($passed+1))
+                POINTS=$(($POINTS+$P))
             else
-                str="error (0p)"
+                if [ $? == 124 ];
+                then
+                    str="timeout (0p)"
+                else
+                    str="error (0p)"
+                fi
+                failed=$(($failed+1))                
             fi
-            failed=$(($failed+1))                
-        fi
-        total=$(($total+1))
-        printf '%*.*s' 0 $((padlength - ${#strtitle} - ${#str} )) "$pad"
-        printf '%s\n' "$str"
-        if [ -f "$hintsfile" ]
-        then
-            cat "$hintsfile" 2>> errors
-        fi
-        rm -f "$hintsfile" 2>> errors
+            total=$(($total+1))
+            printf '%*.*s' 0 $((padlength - ${#strtitle} - ${#str} )) "$pad"
+            printf '%s\n' "$str"
+            if [ -f "$hintsfile" ]
+            then
+                cat "$hintsfile" 2>> errors
+            fi
+            rm -f "$hintsfile" 2>> errors
+        done
     done
-done
 
-echo 'Tests: ' $passed '/' $total
-echo 'Points: '$POINTS
-echo 'Mark without penalties: '`echo $(($POINTS/6)) | sed 's/.$/.&/'`
+    echo 'Tests: ' $passed '/' $total
+    echo 'Points: '$POINTS
+    echo 'Mark without penalties: '`echo $(($POINTS/6)) | sed 's/.$/.&/'`
 
-# afisam problemele
-echo
-cat $errorslist 2>> errors
-echo
-
+    # afisam problemele
+    echo
+    cat $errorslist 2>> errors
+    echo
+else
+    rm -rf $errorslist
+    rm -rf $hintsfile
+    run_script verify/$1
+    error=$?
+    echo "Output"
+    echo "------"
+    cat $errorslist
+    echo "Hints"
+    echo "-----"
+    cat $hintsfile
+    exit $error
+fi
 
 
 

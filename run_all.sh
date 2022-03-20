@@ -33,6 +33,9 @@ POINTS_TOTAL=0
 
 cd "$DIR"
 
+rm -rf "$DIR/output"
+mkdir "$DIR/output"
+
 rm -rf "$DIR/results"
 mkdir "$DIR/results"
 

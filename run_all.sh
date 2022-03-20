@@ -2,7 +2,6 @@
 
 function run_script
 {
-    echo "Run int folder $(pwd)"
     name=`basename $1`
     chmod u+x $1
     # in output/$name.out se va stoca outputul rularii scriptului python
@@ -51,9 +50,8 @@ then
     do
         for script in "$folder"/*.sh
         do
-            # P=`head -n 2 "$script" | tail -n 1 | cut -d ' ' -f 2`
+            P=`head -n 2 "$script" | tail -n 1 | cut -d ' ' -f 2`
             # echo "cd devoir-1-tests && ./run_all.sh $script" "$P"
-            #
             # continue
             
             POINTS_TOTAL=$(($POINTS_TOTAL+$P))
@@ -64,7 +62,7 @@ then
             pad=$(printf '%0.1s' "."{1..60})
             padlength=65
 
-            P=`head -n 2 "$script" | tail -n 1 | cut -d ' ' -f 2`
+            # P=`head -n 2 "$script" | tail -n 1 | cut -d ' ' -f 2`
 
             
 
@@ -104,6 +102,7 @@ then
 else
     rm -rf $errorslist
     rm -rf $hintsfile
+    echo "Run int folder $(pwd)"
     run_script "verify/$1"
     error=$?
     if [ $error != 0 ]

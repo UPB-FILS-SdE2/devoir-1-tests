@@ -12,8 +12,6 @@ echo "donuts" > output/cat_reference
 echo "ay caramba" >> output/cat_reference
 cat /etc/passwd >> output/cat_reference
 
-ls -l output &> $testfile
-
 rustybox cat output/homer output/bart /etc/passwd &> $outputfile
 scriptresult=$?
 

@@ -2,7 +2,7 @@
 
 function run_script
 {
-    pwd
+    echo "Run int folder $(pwd)"
     name=`basename $1`
     chmod u+x $1
     # in output/$name.out se va stoca outputul rularii scriptului python

@@ -47,6 +47,13 @@ then
     do
         for script in "$folder"/*.sh
         do
+            # P=`head -n 2 "$script" | tail -n 1 | cut -d ' ' -f 2`
+            # echo "cd devoir-1-tests && ./run_all.sh $script" "$P"
+            #
+            # continue
+            
+            POINTS_TOTAL=$(($POINTS_TOTAL+$P))
+            
             title=`basename $script`
             strtitle="Verifying $title"
             printf '%s' "$strtitle"
@@ -55,7 +62,7 @@ then
 
             P=`head -n 2 "$script" | tail -n 1 | cut -d ' ' -f 2`
 
-            POINTS_TOTAL=$(($POINTS_TOTAL+$P))
+            
 
             if run_script $script
             then

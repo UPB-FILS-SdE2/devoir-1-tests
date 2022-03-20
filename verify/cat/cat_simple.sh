@@ -23,6 +23,6 @@ then
     fi
 else
     rm -rf output/*
-    echo "Command does not return 0." > $testfile
+    echo "Command does not return 0 ($scriptresult)." > $testfile
     exit -1
 fi

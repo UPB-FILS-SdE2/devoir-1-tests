@@ -6,7 +6,7 @@ testfile=$2
 
 rm -rf my_super_file
 
-rustybox touch -c my_super_file &> $outputfile
+rustybox touch my_super_file && rm -rf my_super_file && rustybox touch -c my_super_file &> $outputfile
 scriptresult=$?
 
 ls my_super_file &> $testfile

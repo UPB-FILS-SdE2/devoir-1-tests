@@ -5,7 +5,7 @@ outputfile=$1
 testfile=$2
 
 rm -rf output/*
-mkdir output/fry
+mkdir -p output/fry
 
 rustybox rmdir output/fry &> $outputfile
 scriptresult=$?

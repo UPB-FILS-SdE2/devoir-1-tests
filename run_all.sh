@@ -7,11 +7,12 @@ function run_script
     # in output/$name.out se va stoca outputul rularii scriptului python
     timeout 5 "./$1"  "output/$name.out" "output/$name.test" >> errors 2>&1
     result=$?
+    echo Test $name >> "$errorslist" 2>&1
+    cat "output/$name.out" >> "$errorslist" 2>> errors
+    echo "" >> "$errorslist" 2>> errors
     if [ $result != 0 ]
     then
     # daca nu a facut bine, copiem ce a afisat scriptul la rulare in error.out
-        echo Test $name >> "$errorslist" 2>&1
-        cat "output/$name.out" >> "$errorslist" 2>> errors
         echo >> "$errorslist" 2>&1
         cat "output/$name.test" > "$hintsfile" 2>> errors
     fi
@@ -27,6 +28,7 @@ failed=0
 total=0
 
 POINTS=0
+POINTS_TOTAL=0
 
 cd "$DIR"
 
@@ -53,17 +55,19 @@ then
 
             P=`head -n 2 "$script" | tail -n 1 | cut -d ' ' -f 2`
 
+            POINTS_TOTAL=$(($POINTS_TOTAL+$P))
+
             if run_script $script
             then
-                str="ok (""$P""p)"
+                str="ok (""$P""p/""$P""p)"
                 passed=$(($passed+1))
                 POINTS=$(($POINTS+$P))
             else
                 if [ $? == 124 ];
                 then
-                    str="timeout (0p)"
+                    str="timeout (0p/""$P""p)"
                 else
-                    str="error (0p)"
+                    str="error (0p/""$P""p)"
                 fi
                 failed=$(($failed+1))                
             fi
@@ -79,7 +83,7 @@ then
     done
 
     echo 'Tests: ' $passed '/' $total
-    echo 'Points: '$POINTS
+    echo 'Points: '$POINTS '/' $POINTS_TOTAL
     echo 'Mark without penalties: '`echo $(($POINTS/6)) | sed 's/.$/.&/'`
 
     # afisam problemele
@@ -89,14 +93,17 @@ then
 else
     rm -rf $errorslist
     rm -rf $hintsfile
-    run_script verify/$1
+    run_script "verify/$1"
     error=$?
     echo "Output"
     echo "------"
     cat $errorslist
-    echo "Hints"
-    echo "-----"
-    cat $hintsfile
+    if [ -f $hintsfile ]
+    then
+        echo "Hints"
+        echo "-----"
+        cat $hintsfile
+    fi
     exit $error
 fi
 

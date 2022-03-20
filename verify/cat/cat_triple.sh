@@ -4,7 +4,7 @@
 outputfile=$1
 testfile=$2
 
-rm -rf output/* &> $testfile
+rm -rf output/* 
 
 echo "donuts" > output/homer
 echo "ay caramba" > output/bart
@@ -12,14 +12,14 @@ echo "donuts" > output/cat_reference
 echo "ay caramba" >> output/cat_reference
 cat /etc/passwd >> output/cat_reference
 
-ls -l output
+ls -l output &> $testfile
 
 rustybox cat output/homer output/bart /etc/passwd &> $outputfile
 scriptresult=$?
 
 if [ $scriptresult == 0 ]
 then
-    diff -y --suppress-common-lines output/cat_reference $outputfile &> $testfile
+    diff -y --suppress-common-lines output/cat_reference $outputfile &>> $testfile
     testresult=$?
 
     rm -rf output/*

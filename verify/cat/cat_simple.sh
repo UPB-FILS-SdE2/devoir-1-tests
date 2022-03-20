@@ -11,7 +11,7 @@ scriptresult=$?
 
 if [ $scriptresult == 0 ]
 then
-    diff -q /etc/passwd $outputfile &> $testfile
+    diff -y --suppress-common-lines /etc/passwd $outputfile &> $testfile
     testresult=$?
 
     rm -rf output/*

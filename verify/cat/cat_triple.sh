@@ -17,7 +17,7 @@ scriptresult=$?
 
 if [ $scriptresult == 0 ]
 then
-    diff -q output/cat_reference $outputfile &> $testfile
+    diff -y --suppress-common-lines output/cat_reference $outputfile &> $testfile
     testresult=$?
 
     rm -rf output/*

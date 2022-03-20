@@ -4,13 +4,15 @@
 outputfile=$1
 testfile=$2
 
-rm -rf output/*
+rm -rf output/* &> $testfile
 
 echo "donuts" > output/homer
 echo "ay caramba" > output/bart
 echo "donuts" > output/cat_reference
 echo "ay caramba" >> output/cat_reference
 cat /etc/passwd >> output/cat_reference
+
+ls -l output
 
 rustybox cat output/homer output/bart /etc/passwd &> $outputfile
 scriptresult=$?

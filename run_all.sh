@@ -5,19 +5,19 @@ function run_script
     name=`basename $1`
     chmod u+x $1
     # in output/$name.out se va stoca outputul rularii scriptului python
-    timeout 5 "./$1"  "output/$name.out" "output/$name.test" >> errors 2>&1
+    timeout 5 "./$1"  "results/$name.out" "results/$name.test" >> errors 2>&1
     result=$?
     echo Test $name >> "$errorslist" 2>&1
-    cat "output/$name.out" >> "$errorslist" 2>> errors
+    cat "results/$name.out" >> "$errorslist" 2>> errors
     echo "" >> "$errorslist" 2>> errors
     if [ $result != 0 ]
     then
     # daca nu a facut bine, copiem ce a afisat scriptul la rulare in error.out
         echo >> "$errorslist" 2>&1
-        cat "output/$name.test" > "$hintsfile" 2>> errors
+        cat "results/$name.test"  > "$hintsfile" 2>> errors
     fi
-    rm -f "output/$name.test" >> errors 2>&1
-    rm -f "output/$name.out" >> errors 2>&1
+    rm -f "results/$name.test" >> errors 2>&1
+    rm -f "results/$name.out" >> errors 2>&1
     return $result
 }
 
@@ -95,14 +95,17 @@ else
     rm -rf $hintsfile
     run_script "verify/$1"
     error=$?
-    echo "Output"
-    echo "------"
-    cat $errorslist
-    if [ -f $hintsfile ]
+    if [ $error != 0 ]
     then
-        echo "Hints"
-        echo "-----"
-        cat $hintsfile
+        echo "Output"
+        echo "------"
+        cat $errorslist
+        if [ -f $hintsfile ]
+        then
+            echo "Hints"
+            echo "-----"
+            cat $hintsfile
+        fi
     fi
     exit $error
 fi

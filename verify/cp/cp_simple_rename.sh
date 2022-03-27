@@ -6,7 +6,7 @@ testfile=$2
 
 rm -f cp_file
 
-rustybox cp /dev/nasty cp_file &> $outputfile
+rustybox cp /etc/passwd cp_file &> $outputfile
 scriptresult=$?
 
 ls cp_file &> $testfile
@@ -14,7 +14,7 @@ testresult=$?
 
 if [ $testresult == 0 ]
 then
-    diff -q /dev/nasty cp_file
+    diff -q /etc/passwd cp_file
     testresult=$?
     
     rm -f cp_file

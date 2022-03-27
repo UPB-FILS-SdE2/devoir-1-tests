@@ -7,7 +7,7 @@ testfile=$2
 rm -rf output
 mkdir output
 
-rustybox cp -r /dev/nasty output &> $outputfile
+rustybox cp -r /etc/passwd output &> $outputfile
 scriptresult=$?
 
 ls output/nasty &> $testfile
@@ -15,7 +15,7 @@ testresult=$?
 
 if [ $testresult == 0 ]
 then
-    diff -q /dev/nasty output/nasty
+    diff -q /etc/passwd output/nasty
     testresult=$?
     
     rm -f output/nasty

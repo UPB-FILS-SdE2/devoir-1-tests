@@ -12,7 +12,7 @@ scriptresult=$?
 
 if [ $scriptresult == 0 ]
 then
-    grep '^runner.*' /etc/passed &> $examplefile
+    grep '^runner.*' /etc/passwd &> $examplefile
     diff -y --suppress-common-lines $examplefile $outputfile &> $testfile
     testresult=$?
 

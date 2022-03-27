@@ -12,7 +12,7 @@ scriptresult=$?
 
 if [ $scriptresult == 0 ]
 then
-    grep '::' /etc/passed &> $examplefile
+    grep '::' /etc/passwd &> $examplefile
     diff -y --suppress-common-lines $examplefile $outputfile &> $testfile
     testresult=$?
 

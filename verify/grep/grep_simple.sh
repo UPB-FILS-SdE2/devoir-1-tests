@@ -12,7 +12,7 @@ scriptresult=$?
 
 if [ $scriptresult == 0 ]
 then
-    grep www-data /etc/passed &> $examplefile
+    grep www-data /etc/passwd &> $examplefile
     diff -y --suppress-common-lines $examplefile $outputfile &> $testfile
     testresult=$?
 

@@ -12,7 +12,7 @@ scriptresult=$?
 
 if [ $scriptresult == 0 ]
 then
-    grep '/usr/sbin/nologin$' /etc/passed &> $examplefile
+    grep '/usr/sbin/nologin$' /etc/passwd &> $examplefile
     diff -y --suppress-common-lines $examplefile $outputfile &> $testfile
     testresult=$?
 

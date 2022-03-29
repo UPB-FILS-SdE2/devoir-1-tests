@@ -10,15 +10,15 @@ mkdir output
 rustybox cp -r /etc/passwd output &> $outputfile
 scriptresult=$?
 
-ls output/nasty &> $testfile
+ls output/passwd &> $testfile
 testresult=$?
 
 if [ $testresult == 0 ]
 then
-    diff -q /etc/passwd output/nasty
+    diff -q /etc/passwd output/passwd
     testresult=$?
     
-    rm -f output/nasty
+    rm -f output/passwd
 
     if [ $testresult == 0 ]
     then
@@ -33,7 +33,7 @@ then
     exit $testresult
 
 else
-    rm -f output/nasty
+    rm -f output/passwd
     echo "Destination file does not exist." > $testfile
     exit -1
 fi

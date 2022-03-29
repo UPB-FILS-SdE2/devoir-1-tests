@@ -11,12 +11,12 @@ mkdir output
 rustybox cp /etc/passwd output &> $outputfile
 scriptresult=$?
 
-ls output/nasty &> $testfile
+ls output/passwd &> $testfile
 testresult=$?
 
 if [ $testresult == 0 ]
 then
-    diff -q /etc/passwd output/nasty
+    diff -q /etc/passwd output/passwd
     testresult=$?
     
     rm -rf output/*

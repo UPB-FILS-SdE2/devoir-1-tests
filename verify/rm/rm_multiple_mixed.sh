@@ -8,7 +8,7 @@ testfile=$2
 touch mickey
 mkdir pluto
 
-rustybox rm --R mickey pluto &> $outputfile
+rustybox rm -R mickey pluto &> $outputfile
 scriptresult=$?
 
 node verify/rm/rm.js mickey pluto > $testfile 2>> $outputfile

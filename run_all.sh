@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export QUOTING_STYLE=literal
+
 function run_script
 {
     name=`basename $1`

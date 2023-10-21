@@ -2,7 +2,7 @@
 
 node -e 'require("lodash");' &> /dev/null
 
-if [ $? != 0 ];
+if [ $? != 0 ]; then
     echo "Lodash is not installed, installing"
     npm install lodash
 fi

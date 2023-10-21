@@ -1,5 +1,12 @@
 #!/bin/bash
 
+node -e 'require("lodash");' &> /dev/null
+
+if [ $? != 0 ];
+    echo "Lodash is not installed, installing"
+    npm install -g lodash
+fi
+
 export QUOTING_STYLE=literal
 
 function run_script

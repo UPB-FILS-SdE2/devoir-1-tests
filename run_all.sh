@@ -3,8 +3,8 @@
 node -e 'require("lodash");' &> /dev/null
 
 if [ $? != 0 ]; then
-    echo "Lodash is not installed, installing"
-    npm install lodash
+    echo "Packages is not installed, installing"
+    npm install install --production 
 fi
 
 export QUOTING_STYLE=literal
@@ -103,6 +103,8 @@ then
     echo 'Tests: ' $passed '/' $total
     echo 'Points: '$POINTS '/' $POINTS_TOTAL
     echo 'Mark without penalties: '`echo $(($POINTS/6)) | sed 's/.$/.&/'`
+
+    node index.js "$POINTS/$POINTS_TOTAL"
 
     # afisam problemele
     echo

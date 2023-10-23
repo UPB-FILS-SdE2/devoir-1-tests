@@ -110,6 +110,11 @@ then
     echo
     cat $errorslist 2>> errors
     echo
+
+    if [ $passed < $total ];
+    then
+        exit -1
+    fi
 else
     rm -rf $errorslist
     rm -rf $hintsfile

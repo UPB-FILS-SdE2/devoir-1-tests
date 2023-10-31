@@ -16,15 +16,17 @@ touch "lstest/modern family/dunphy/claire"
 touch "lstest/modern family/dunphy/phil"
 touch "lstest/TVshows"
 
-echo "modern family" > output/ls_out
-echo "TVshows" >> output/ls_out
-echo "modern family/pritchett" >> output/ls_out
-echo "modern family/dunphy" >> output/ls_out
-echo "modern family/pritchett/jay" >> output/ls_out
-echo "modern family/pritchett/gloria" >> output/ls_out
-echo "modern family/pritchett/joe" >> output/ls_out
-echo "modern family/dunphy/claire" >> output/ls_out
-echo "modern family/dunphy/phil" >> output/ls_out
+# echo "modern family" > output/ls_out
+# echo "TVshows" >> output/ls_out
+# echo "modern family/pritchett" >> output/ls_out
+# echo "modern family/dunphy" >> output/ls_out
+# echo "modern family/pritchett/jay" >> output/ls_out
+# echo "modern family/pritchett/gloria" >> output/ls_out
+# echo "modern family/pritchett/joe" >> output/ls_out
+# echo "modern family/dunphy/claire" >> output/ls_out
+# echo "modern family/dunphy/phil" >> output/ls_out
+
+ls -R lstest | grep -v total > output/ls_out
 
 rustybox ls -R lstest &> $outputfile
 scriptresult=$?

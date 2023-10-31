@@ -21,13 +21,13 @@ try{
     let minusScriptFiles = _.difference (reference, script);
 
     if (extraScriptFiles.length != 0){
-        console.log ('ls prints extra files/directories');
-        console.log (extraScriptFiles);
+        console.error ('ls prints extra files/directories');
+        console.error (extraScriptFiles);
         process.exit (1);
     }
     else if (minusScriptFiles.length != 0){
-        console.log ('ls does not print all files/directories, missing');
-        console.log (minusScriptFiles);
+        console.error ('ls does not print all files/directories, missing');
+        console.error (minusScriptFiles);
         process.exit (1);
     }
 }

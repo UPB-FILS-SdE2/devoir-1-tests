@@ -23,11 +23,13 @@ try{
     if (extraScriptFiles.length != 0){
         console.error ('ls prints extra files/directories');
         console.error (extraScriptFiles);
-        process.exit (1);
     }
     else if (minusScriptFiles.length != 0){
         console.error ('ls does not print all files/directories, missing');
         console.error (minusScriptFiles);
+    }
+    if (extraScriptFiles.length != 0 || minusScriptFiles.length != 0)
+    {
         process.exit (1);
     }
 }

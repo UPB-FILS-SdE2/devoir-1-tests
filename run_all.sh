@@ -1,5 +1,12 @@
 #!/bin/bash
 
+node -e 'require("lodash");' &> /dev/null
+
+if [ $? != 0 ]; then
+    echo "Packages is not installed, installing"
+    npm install install --production 
+fi
+
 export QUOTING_STYLE=literal
 
 function run_script
@@ -97,10 +104,17 @@ then
     echo 'Points: '$POINTS '/' $POINTS_TOTAL
     echo 'Mark without penalties: '`echo $(($POINTS/6)) | sed 's/.$/.&/'`
 
+    node index.js "$POINTS/$POINTS_TOTAL"
+
     # afisam problemele
     echo
     cat $errorslist 2>> errors
     echo
+
+    if [ $passed < $total ];
+    then
+        exit -1
+    fi
 else
     rm -rf $errorslist
     rm -rf $hintsfile

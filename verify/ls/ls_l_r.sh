@@ -5,15 +5,15 @@ outputfile=$1
 testfile=$2
 
 
-rustybox ls -R -l &> $outputfile
+rustybox ls -R -l verify &> $outputfile
 scriptresult=$?
 
-ls -R -l | tr -s ' ' | cut -d ' ' -f 1,3,4,5,7,8,9 | grep -v total > output/ls_out
+ls -R -l verify | tr -s ' ' | cut -d ' ' -f 1,3,4,5,7,8,9 | grep -v total > output/ls_out
 
 node verify/ls/ls.js output/ls_out $outputfile > $testfile 2>> $outputfile
 testresult=$?
 
-rm -f output/ls_out
+rm -f output/.ls_out
 
 if [ $testresult == 0 ]
 then
@@ -25,5 +25,4 @@ then
 fi
 
 exit $testresult
-
 

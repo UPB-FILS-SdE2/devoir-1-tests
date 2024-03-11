@@ -12,13 +12,14 @@ touch lstest/family
 mkdir lstest/gloria
 touch lstest/.hidden
 
-echo "modern" > output/ls_out
-echo "family" >> output/ls_out
-echo "gloria" >> output/ls_out
-echo ".hidden" >> output/ls_out
-echo "." >> output/ls_out
-echo ".." >> output/ls_out
+# echo "modern" > output/ls_out
+# echo "family" >> output/ls_out
+# echo "gloria" >> output/ls_out
+# echo ".hidden" >> output/ls_out
+# echo "." >> output/ls_out
+# echo ".." >> output/ls_out
 
+ls -a `pwd`/lstest > output/ls_out
 
 rustybox ls -a `pwd`/lstest &> $outputfile
 scriptresult=$?
